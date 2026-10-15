@@ -1171,6 +1171,67 @@
   .warm-touch::before { width:88px; height:88px; left:-44px; top:-44px; border:2px solid rgba(176,117,42,.8); background:radial-gradient(circle,rgba(255,215,139,.38),rgba(245,196,112,.12) 50%,transparent 72%); box-shadow:0 0 16px rgba(224,170,82,.22); animation-duration:1100ms; }
   .warm-touch::after { content:''; position:absolute; width:46px; height:46px; left:-23px; top:-23px; border:1px solid rgba(202,151,68,.75); border-radius:50%; animation:warmRipple 950ms ease-out forwards; pointer-events:none; }
   .warm-touch i { width:6px; height:6px; margin:-3px; background:#c28b3e; box-shadow:0 0 9px rgba(238,184,89,.65); animation-duration:1050ms; }
+  /* Feather the actual illustration bounds, rather than the viewport edges. */
+  #wallpaper {
+    inset: 0 auto 0 50%;
+    width: min(100vw, 61.770833vh);
+    height: 100vh;
+    transform: translateX(-50%);
+    background-size: contain;
+    background-position: center;
+    -webkit-mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.2) 5%,rgba(0,0,0,.75) 14%,#000 25%,#000 75%,rgba(0,0,0,.75) 86%,rgba(0,0,0,.2) 95%,transparent 100%);
+    mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.2) 5%,rgba(0,0,0,.75) 14%,#000 25%,#000 75%,rgba(0,0,0,.75) 86%,rgba(0,0,0,.2) 95%,transparent 100%);
+  }
+  @supports (height: 100svh) {
+    #wallpaper { width: min(100vw, 61.770833svh); height: 100svh; }
+  }
+  #bgShade {
+    background: radial-gradient(ellipse at 18% 42%,rgba(232,194,118,.18),transparent 48%),
+      radial-gradient(ellipse at 82% 65%,rgba(199,180,119,.12),transparent 46%),
+      linear-gradient(180deg,rgba(255,250,243,.15),rgba(255,250,243,.48));
+  }
+  @media (max-width:720px) and (orientation:portrait) {
+    #wallpaper {
+      width: 100%; background-size: cover;
+      -webkit-mask-image: linear-gradient(90deg,rgba(0,0,0,.65),#000 18%,#000 82%,rgba(0,0,0,.65));
+      mask-image: linear-gradient(90deg,rgba(0,0,0,.65),#000 18%,#000 82%,rgba(0,0,0,.65));
+    }
+  }
+  /* Responsive readability: grow desktop content without scaling the entire page. */
+  :root { --max: clamp(1200px, 86vw, 1680px); }
+  header.nav, header.nav.scrolled { max-width: var(--max); }
+  #hero .lede { width: 100%; max-width: 44em; font-size: clamp(16px, 1.15vw, 22px); }
+  #hero .hi { font-size: clamp(13px, .9vw, 17px); }
+  #hero h1 .glow { font-size: clamp(70px, 7.5vw, 156px); }
+  .typed-wrap { font-size: clamp(18px, 1.6vw, 30px); max-width: 100%; overflow-wrap: anywhere; }
+  .section-inner > *, .about-grid > *, .skills-grid > *, .favorites-grid > * { min-width: 0; }
+  .contact-item .v { overflow-wrap: anywhere; }
+  @media (min-width: 1100px) {
+    nav.links a { font-size: clamp(14px, .9vw, 18px); }
+    .btn { font-size: clamp(15px, 1vw, 20px); }
+    .about-grid p.body, .skill p, .interest p, .project p, .tl-item p,
+    .hobby p, .hobby-games li, .favorite-review, .debug-grid p,
+    .vehicle-panel p, .vehicle-example p, .section-intro, .heading-aside p {
+      font-size: clamp(16px, 1vw, 20px);
+    }
+    .section-heading { gap: 36px; }
+    .heading-aside { max-width: 28em; }
+  }
+  @media (max-width: 720px) {
+    #hero { padding-inline: 20px; }
+    #hero .lede { font-size: 16px; line-height: 1.9; }
+    #hero .hi { font-size: 12px; }
+    #hero h1 .glow { font-size: clamp(56px, 16vw, 100px); }
+    .btn { min-height: 44px; font-size: 14px; }
+    .cta { flex-wrap: wrap; }
+    .fact span { font-size: 12px; }
+    .facts { gap: 16px; flex-wrap: wrap; }
+    .section-inner { padding-inline: 20px; }
+  }
+  @media (max-height: 600px) and (orientation: landscape) {
+    #hero { padding-top: 120px; padding-bottom: 64px; }
+    .scroll-hint { display: none; }
+  }
 </style>
 <noscript><style>.reveal { opacity:1; transform:none; } @media(max-width:720px){header.nav,header.nav.scrolled{position:relative;top:auto;left:auto;right:auto;margin:12px;flex-wrap:wrap;}nav.links{position:static;visibility:visible;opacity:1;transform:none;pointer-events:auto;flex-direction:row;flex-wrap:wrap;max-height:none;box-shadow:none;} .burger,.view-options,.copy-actions{display:none;}}</style></noscript>
 </head>
