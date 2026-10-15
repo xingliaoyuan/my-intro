@@ -1179,8 +1179,8 @@
     transform: translateX(-50%);
     background-size: contain;
     background-position: center;
-    -webkit-mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.2) 5%,rgba(0,0,0,.75) 14%,#000 25%,#000 75%,rgba(0,0,0,.75) 86%,rgba(0,0,0,.2) 95%,transparent 100%);
-    mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.2) 5%,rgba(0,0,0,.75) 14%,#000 25%,#000 75%,rgba(0,0,0,.75) 86%,rgba(0,0,0,.2) 95%,transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.08) 6%,rgba(0,0,0,.32) 14%,rgba(0,0,0,.72) 23%,#000 34%,#000 66%,rgba(0,0,0,.72) 77%,rgba(0,0,0,.32) 86%,rgba(0,0,0,.08) 94%,transparent 100%);
+    mask-image: linear-gradient(90deg,transparent 0%,rgba(0,0,0,.08) 6%,rgba(0,0,0,.32) 14%,rgba(0,0,0,.72) 23%,#000 34%,#000 66%,rgba(0,0,0,.72) 77%,rgba(0,0,0,.32) 86%,rgba(0,0,0,.08) 94%,transparent 100%);
   }
   @supports (height: 100svh) {
     #wallpaper { width: min(100vw, 61.770833svh); height: 100svh; }
@@ -1196,6 +1196,45 @@
       -webkit-mask-image: linear-gradient(90deg,rgba(0,0,0,.65),#000 18%,#000 82%,rgba(0,0,0,.65));
       mask-image: linear-gradient(90deg,rgba(0,0,0,.65),#000 18%,#000 82%,rgba(0,0,0,.65));
     }
+  }
+  /* Match the opening screen's illustration edges to the main wallpaper. */
+  #launch::before {
+    inset: 0 0 auto auto;
+    width: min(100%, 61.770833vh); height: 100vh;
+    background: url('background.jpg?v=20261013-2011') center / contain no-repeat;
+    opacity: .48;
+    -webkit-mask-image: linear-gradient(90deg,transparent,rgba(0,0,0,.08) 6%,rgba(0,0,0,.32) 14%,rgba(0,0,0,.72) 23%,#000 34%,#000 66%,rgba(0,0,0,.72) 77%,rgba(0,0,0,.32) 86%,rgba(0,0,0,.08) 94%,transparent);
+    mask-image: linear-gradient(90deg,transparent,rgba(0,0,0,.08) 6%,rgba(0,0,0,.32) 14%,rgba(0,0,0,.72) 23%,#000 34%,#000 66%,rgba(0,0,0,.72) 77%,rgba(0,0,0,.32) 86%,rgba(0,0,0,.08) 94%,transparent);
+  }
+  @supports (height:100svh) {
+    #launch::before { width:min(100%,61.770833svh); height:100svh; }
+  }
+  @media(max-width:720px) {
+    #launch::before { left:50%; right:auto; transform:translateX(-50%); opacity:.28; }
+  }
+  /* Keep short landscape screens scrollable and tablet navigation reachable. */
+  #launch > *, #entry-loading > * { flex-shrink: 0; }
+  .launch-top, .launch-bottom { flex-wrap: wrap; overflow-wrap: anywhere; }
+  .chip { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+  @media (min-width:721px) and (max-width:900px) {
+    .burger { display:grid; }
+    nav.links {
+      position:absolute; inset:calc(100% + 10px) 0 auto;
+      display:flex; flex-direction:column; align-items:stretch; gap:2px;
+      padding:12px; border:1px solid var(--line); border-radius:18px;
+      background:#fffaf3; box-shadow:0 18px 40px rgba(92,67,42,.12);
+      max-height:calc(100svh - 120px); overflow-y:auto;
+      visibility:hidden; opacity:0; pointer-events:none; transform:translateY(-12px);
+    }
+    nav.links.open { visibility:visible; opacity:1; pointer-events:auto; transform:none; }
+    nav.links a, nav.links a:last-child { padding:12px 14px; font-size:16px; margin-left:0; }
+    .section-heading { grid-template-columns:1fr; gap:24px; }
+    .heading-aside { margin-left:64px; max-width:none; }
+  }
+  @media (max-width:360px) {
+    .card, .skill, .interest, .favorite-group { padding:18px; }
+    .vehicle-steps { grid-template-columns:1fr; }
+    .vehicle-steps button { min-height:80px; }
   }
   /* Responsive readability: grow desktop content without scaling the entire page. */
   :root { --max: clamp(1200px, 86vw, 1680px); }
@@ -1233,7 +1272,7 @@
     .scroll-hint { display: none; }
   }
 </style>
-<noscript><style>.reveal { opacity:1; transform:none; } @media(max-width:720px){header.nav,header.nav.scrolled{position:relative;top:auto;left:auto;right:auto;margin:12px;flex-wrap:wrap;}nav.links{position:static;visibility:visible;opacity:1;transform:none;pointer-events:auto;flex-direction:row;flex-wrap:wrap;max-height:none;box-shadow:none;} .burger,.view-options,.copy-actions{display:none;}}</style></noscript>
+<noscript><style>@media(min-width:721px) and (max-width:900px){header.nav,header.nav.scrolled{position:relative;inset:auto;margin:16px;flex-wrap:wrap;}nav.links{position:static;visibility:visible;opacity:1;pointer-events:auto;transform:none;flex-direction:row;flex-wrap:wrap;max-height:none;width:100%;}.burger{display:none;}}.reveal { opacity:1; transform:none; } @media(max-width:720px){header.nav,header.nav.scrolled{position:relative;top:auto;left:auto;right:auto;margin:12px;flex-wrap:wrap;}nav.links{position:static;visibility:visible;opacity:1;transform:none;pointer-events:auto;flex-direction:row;flex-wrap:wrap;max-height:none;box-shadow:none;} .burger,.view-options,.copy-actions{display:none;}}</style></noscript>
 </head>
 <body>
 <div id="launch" hidden role="dialog" aria-modal="true" aria-labelledby="launch-title">
@@ -1820,7 +1859,7 @@
     document.addEventListener("click", function (e) {
       if (!nav.contains(e.target) && !btn.contains(e.target)) closeMenu();
     });
-    window.addEventListener("resize", function () { if (window.innerWidth > 720) closeMenu(); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 900) closeMenu(); });
     btn.addEventListener("click", function () {
       var open = nav.classList.toggle("open");
       btn.classList.toggle("open", open);
